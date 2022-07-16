@@ -2,8 +2,12 @@ const { signIn, signUp } = require('./users.service')
 
 async function login(req, res, next) {
   const { email, password } = req.body
-  const user = await signIn({ email, password })
-  res.json(user)
+  try {
+    const user = await signIn({ email, password })
+    res.status(201).json({status: 200, success: true, message: 'login completed', user})
+  } catch (err) {
+    res.status(400).json({status: 400, success: false, message: 'An error has occurs'})
+  }
 }
 
 async function register(req, res, next) {

@@ -2,8 +2,9 @@ const Users = require('./users.model')
 
 
 async function signIn({email, password}){
-  const user = Users.find({email})
-  if(email.password !== password ) throw new Error('wrong password')
+  const user = await Users.findOne({email})
+  console.log(user)
+  if(user.password !== password ) throw new Error('wrong password')
 
   delete user.password
   return user
